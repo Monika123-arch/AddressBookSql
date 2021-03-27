@@ -1,0 +1,183 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| payroll_service    |
+| performance_schema |
+| company            |
+| word               |
+| name               |
++--------------------+
+7 rows in set (0.04 sec)
+
+mysql> CREATE DATABASE addressBook_service;
+Query OK, 1 row affected (0.10 sec)
+
+mysql> USE addressBook_service;
+Database changed
+mysql> SELECT DATABASE();
++---------------------+
+| DATABASE()          |
++---------------------+
+| addressbook_service |
++---------------------+
+1 row in set (0.00 sec)
+mysql> CREATE TABLE address_book
+    -> (
+    -> firstName  VARCHAR(150) NOT NULL,
+    -> lastName   VARCHAR(150) NOT NULL,
+    -> address     VARCHAR(150) NOT NULL,
+    -> city        CHAR(150) NOT NULL,
+    -> state       VARCHAR(150) NOT NULL,
+    -> zip         Double NOT NULL,
+    -> phoneNo    Double NOT NULL,
+    -> email       VARCHAR(150) NOT NULL
+    -> );
+Query OK, 0 rows affected (1.62 sec)
+
+mysql> DESCRIBE address_book;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| firstName | varchar(150) | NO   |     | NULL    |       |
+| lastName  | varchar(150) | NO   |     | NULL    |       |
+| address   | varchar(150) | NO   |     | NULL    |       |
+| city      | char(150)    | NO   |     | NULL    |       |
+| state     | varchar(150) | NO   |     | NULL    |       |
+| zip       | double       | NO   |     | NULL    |       |
+| phoneNo   | double       | NO   |     | NULL    |       |
+| email     | varchar(150) | NO   |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+8 rows in set (0.04 sec)mysql> CREATE TABLE address_book
+    -> (
+    -> firstName  VARCHAR(30) NOT NULL,
+    -> lastName   VARCHAR(30) NOT NULL,
+    -> address     VARCHAR(30) NOT NULL,
+    -> city        CHAR(30) NOT NULL,
+    -> state       VARCHAR(30) NOT NULL,
+    -> zip         Double NOT NULL,
+    -> phoneNo    Double NOT NULL,
+    -> email       VARCHAR(30) NOT NULL
+    -> );
+Query OK, 0 rows affected (1.62 sec)
+
+mysql> DESCRIBE address_book;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| firstName | varchar(30)  | NO   |     | NULL    |       |
+| lastName  | varchar(30)  | NO   |     | NULL    |       |
+| address   | varchar(30)  | NO   |     | NULL    |       |
+| city      | char(30)     | NO   |     | NULL    |       |
+| state     | varchar(30)  | NO   |     | NULL    |       |
+| zip       | double       | NO   |     | NULL    |       |
+| phoneNo   | double       | NO   |     | NULL    |       |
+| email     | varchar(30)  | NO   |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+8 rows in set (0.04 sec)
+mysql> INSERT INTO address_book ( firstName, lastName, address, city, state, zip, phoneNo, email )VALUES
+    -> ( 'Jagruti', 'Patil', 'abc', 'Panvel', 'Mharashtra', 768321, 2637978230, 'jagruti@gmail.com' ),
+    ->  ( 'Monika', 'Kale', 'xyz', 'Panvel', 'Mharashtra', 500032, 7864532190, 'monika@gmail.com' ),
+    ->  ( 'Rutuja', 'Patil', 'qrs', 'vashi', 'Mharashtra', 656770, 6780457881, 'rutuja@gmail.com' );
+Query OK, 3 rows affected (0.11 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM address_book;
++-----------+----------+---------+-----------+-----------+--------+------------+-----------------+
+| firstName | lastName | address | city      | state     | zip    | phoneNo    | email           |
++-----------+----------+---------+-----------+-----------+--------+------------+-----------------+
+| Jagruti   | Patil    | abc     | panvel    | Mharashtra| 768321 | 2637978230 |jagruti@gmail.com|
+| Monika    | Kale     | xyz     | Panvel    | Mharashtra| 500032 | 7864532190 |monika@gmail.com |
+| Rutuja    | Patil    | qrs     | vashi     | Mharashtra| 656770 | 6780457881 |rutuja@gmail.com |
++-----------+----------+---------+-----------+-----------+--------+------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE address_book set address = 'tcr' WHERE firstName = 'Jagruti';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM address_book;
++-----------+----------+---------+-----------+-----------+--------+------------+-----------------+
+| firstName | lastName | address | city      | state     | zip    | phoneNo    | email           |
++-----------+----------+---------+-----------+-----------+--------+------------+-----------------+
+| Jagruti   | Patil    | tcr     | panvel    | Mharashtra| 768321 | 2637978230 |jagruti@gmail.com|
+| Monika    | Kale     | xyz     | Panvel    | Mharashtra| 500032 | 7864532190 |monika@gmail.com |
+| Rutuja    | Patil    | qrs     | vashi     | Mharashtra| 656770 | 6780457881 |rutuja@gmail.com |
++-----------+----------+---------+-----------+-----------+--------+------------+-----------------+
+3 rows in set (0.01 sec)
+
+ DELETE FROM address_book WHERE firstName = 'Jagruti';
+Query OK, 1 row affected (0.08 sec)
+
+mysql> SELECT * FROM address_book;
++-----------+----------+---------+-----------+-----------+--------+------------+-----------------+
+| firstName | lastName | address | city      | state     | zip    | phoneNo    | email           |
++-----------+----------+---------+-----------+-----------+--------+------------+-----------------+
+| Monika    | Kale     | xyz     | Panvel    | Mharashtra| 500032 | 7864532190 |monika@gmail.com |
+| Rutuja    | Patil    | qrs     | vashi     | Mharashtra| 656770 | 6780457881 |rutuja@gmail.com |
++-----------+----------+---------+-----------+-----------+--------+------------+-----------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT city FROM address_book WHERE firstName = 'Jagruti';
++-------+
+| city  |
++-------+
+| Panvel|
++-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT state FROM address_book WHERE firstName = 'Monika';
++-----------+
+| state     |
++-----------+
+| Mharashtra|
++-----------+
+1 row in set (0.00 sec)
+mysql> SELECT count(city) FROM address_book ;
++-------------+
+| count(city) |
++-------------+
+|           3 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT count(state) FROM address_book ;
++--------------+
+| count(state) |
++--------------+
+|            3 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM address_book WHERE city = 'Panvel'  ORDER BY firstName  ASC;
++-----------+----------+---------+-----------+-----------+--------+------------+----------------+
+| firstName | lastName | address | city      | state     | zip    | phoneNo    | email          |
++-----------+----------+---------+-----------+-----------+--------+------------+----------------+
+| Monika    | Kale     | xyz     | Panvel    | Mharashtra| 500032 | 7864532190 |monika@gmail.com|
++-----------+----------+---------+-----------+-----------+--------+------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE address_book ADD type CHAR(10) AFTER lastName;
+Query OK, 0 rows affected (2.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM address_book;
++-----------+----------+------+---------+-----------+-----------+--------+------------+-----------------+
+| firstName | lastName | type | address | city      | state     | zip    | phoneNo    | email           |
++-----------+----------+------+---------+-----------+-----------+--------+------------+-----------------+
+| Monika    | Kale     | NULL | xyz     | Panvel    | Mharashtra| 500032 | 7864532190 | monika@gmail.com|
+| Rutuja    | Patil    | NULL | qrs     | vashi     | Mharashtra| 656770 | 6780457881 | rutuja@gmail.com|
+| Jagruti   | Patil    | NULL | abc     | Panvel    | Mharashtra| 768321 | 2637978230 |jagruti@gmail.com|
++-----------+----------+------+---------+-----------+-----------+--------+------------+-----------------+
+3 rows in set (0.00 sec)
+mysql> SELECT count(firstName) FROM address_book WHERE Type = 'Family' OR Type = 'Friends' OR Type = 'Profession';
++------------------+
+| count(firstName) |
++------------------+
+|                3 |
++------------------+
+1 row in set (0.00 sec)
+
+
